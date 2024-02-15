@@ -4,3 +4,21 @@ spring:
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 36379
+#  logging:
+#    level:
+#      org:
+#        springframework:
+#          jdbc:
+
+logging:
+  level:
+    org:
+      springframework:
+        jdbc: DEBUG
