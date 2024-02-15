@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:13.4-alpine
+    container_name: password-manager-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: password-manager
+    ports:
+      - "45432:5432"
+  redis:
+    image: redis:7.0
+    container_name: password-manager-redis
+    restart: always
+    ports:
+      - "36379:6379"
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
