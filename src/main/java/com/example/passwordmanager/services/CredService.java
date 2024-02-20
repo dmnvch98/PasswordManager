@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -16,6 +18,10 @@ public class CredService {
     @CacheEvict(value = "usr", key = "#credential.userId")
     public Credential save(Credential credential) {
         return credRepository.save(credential);
+    }
+
+    public List<Credential> getCredsByIds(List<Long> ids) {
+        return (List<Credential>) credRepository.findAllById(ids);
     }
 
     @CacheEvict(value = "usr", key = "#userId")

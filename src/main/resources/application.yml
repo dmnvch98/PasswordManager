@@ -11,14 +11,5 @@ spring:
     redis:
       host: localhost
       port: 36379
-#  logging:
-#    level:
-#      org:
-#        springframework:
-#          jdbc:
-
-logging:
-  level:
-    org:
-      springframework:
-        jdbc: DEBUG
+elastic:
+  url: localhost:9200

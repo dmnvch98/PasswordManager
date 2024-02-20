@@ -7,18 +7,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.io.Serial;
-import java.io.Serializable;
 import java.util.Set;
 
 @Table("users")
 @Value
 @Builder
 @Jacksonized
-public class User implements Serializable {
+public class User {
 
-    @Serial
-    private static final long serialVersionUID = 1L;
     @Id
     Long id;
     String email;

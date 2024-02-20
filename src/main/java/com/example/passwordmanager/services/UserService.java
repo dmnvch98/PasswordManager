@@ -3,7 +3,6 @@ package com.example.passwordmanager.services;
 import com.example.passwordmanager.models.User;
 import com.example.passwordmanager.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,7 +23,6 @@ public class UserService {
         return (List<User>) userRepository.findAll();
     }
 
-    @Cacheable(value = "usr", key = "#id")
     public User findById(Long id) {
         return userRepository
                 .findById(id)

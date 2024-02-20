@@ -1,7 +1,8 @@
 package com.example.passwordmanager.controllers;
 
-import com.example.passwordmanager.models.User;
-import com.example.passwordmanager.services.UserService;
+import com.example.passwordmanager.dto.UserRequestDto;
+import com.example.passwordmanager.dto.UserResponseDto;
+import com.example.passwordmanager.facades.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,21 +14,21 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserFacade userService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public User save(@RequestBody final User user) {
-        return userService.save(user);
+    public UserResponseDto save(@RequestBody final UserRequestDto userRequestDto) {
+        return userService.save(userRequestDto);
     }
 
     @GetMapping
-    public List<User> findAll() {
+    public List<UserResponseDto> findAll() {
         return userService.findAll();
     }
 
     @GetMapping("/{id}")
-    public User findById(@PathVariable Long id) {
+    public UserResponseDto findById(@PathVariable Long id) {
         return userService.findById(id);
     }
 }

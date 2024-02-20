@@ -1,7 +1,9 @@
 package com.example.passwordmanager.models;
 
 import lombok.Builder;
+import lombok.Setter;
 import lombok.Value;
+import lombok.With;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -23,6 +25,7 @@ public class Credential implements Serializable {
     String website;
     String username;
     String password;
+    @With
     LocalDateTime createdAt;
     @Column("user_id")
     Long userId;

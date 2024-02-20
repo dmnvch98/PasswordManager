@@ -1,11 +1,14 @@
 package com.example.passwordmanager.controllers;
 
+import com.example.passwordmanager.dto.CredentialsDtoSafe;
+import com.example.passwordmanager.facades.CredFacade;
 import com.example.passwordmanager.models.Credential;
-import com.example.passwordmanager.services.CredService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RequestMapping("/api/v1/creds")
@@ -13,18 +16,23 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CredController {
 
-    private final CredService credService;
+    private final CredFacade credFacade;
 
     @PostMapping
-    public ResponseEntity<Credential> save(@RequestBody Credential credential) {
-        Credential savedCredential = credService.save(credential);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedCredential);
+    @ResponseStatus(HttpStatus.CREATED)
+    public CredentialsDtoSafe save(@RequestBody Credential credential) {
+        return credFacade.save(credential);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        Long userId = 1L;
-        credService.deleteCredential(id, userId);
-        return ResponseEntity.noContent().build();
+    @GetMapping()
+    public List<Credential> findAllByDescription(@RequestParam(required = false) String description) {
+        return credFacade.findCredentialsByDescription(description);
     }
+
+//    @DeleteMapping("/{id}")
+//    @ResponseStatus(HttpStatus.NO_CONTENT)
+//    public void delete(@PathVariable Long id) {
+//        Long userId = 1L;
+//        credService.deleteCredential(id, userId);
+//    }
 }
